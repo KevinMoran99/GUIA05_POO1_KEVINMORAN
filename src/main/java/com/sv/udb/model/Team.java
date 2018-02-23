@@ -12,8 +12,9 @@ import java.util.ArrayList;
  * @author kevin
  */
 public class Team {
-    String name, description;
-    ArrayList<Player> playerList;
+    private int code;
+    private String name, description;
+    private ArrayList<Player> playerList;
 
     public Team() {
     }
@@ -49,6 +50,14 @@ public class Team {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
     
     

@@ -10,6 +10,7 @@ package com.sv.udb.model;
  * @author kevin
  */
 public class Player {
+    private int code;
     private String name;
     private int age;
     private double height;
@@ -99,8 +100,18 @@ public class Player {
         this.weight = weight;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Player{" + "name=" + name + '}';
+        return name;
 }
 }

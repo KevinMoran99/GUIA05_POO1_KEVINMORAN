@@ -5,6 +5,9 @@
  */
 package com.sv.udb.view;
 
+import com.sv.udb.controller.TeamController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Estudiante
@@ -82,6 +85,11 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtTeamDesc);
 
         btnAddTeam.setText("Agregar");
+        btnAddTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddTeamActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -213,9 +221,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel9)
                             .addComponent(cmbTeam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
@@ -342,6 +348,21 @@ public class MainFrame extends javax.swing.JFrame {
     private void txtWeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWeightActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtWeightActionPerformed
+
+    private void btnAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamActionPerformed
+        try {
+            if ( new TeamController().save(txtTeamName.getText().trim(), txtTeamDesc.getText().trim())) {
+                JOptionPane.showMessageDialog(this, "Equipo guardado");
+                txtTeamName.setText("");
+                txtTeamDesc.setText("");
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el equipo.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddTeamActionPerformed
 
     /**
      * @param args the command line arguments
