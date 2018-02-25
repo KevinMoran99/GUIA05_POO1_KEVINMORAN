@@ -19,10 +19,12 @@ public class Team {
     public Team() {
     }
 
-    public Team(String name) {
+    public Team(int code, String name, String description) {
+        this.code = code;
         this.name = name;
-        playerList = new ArrayList<>();
+        this.description = description;
     }
+
 
     public String getName() {
         return name;

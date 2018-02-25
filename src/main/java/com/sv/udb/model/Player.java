@@ -29,7 +29,8 @@ public class Player {
      * @param height La estatura del jugador.
      * @param weight El peso del jugador.
      */
-    public Player(String name, int age, double height, double weight) {
+    public Player(int code, String name, int age, double height, double weight) {
+        this.code = code;
         this.name = name;
         this.age = age;
         this.height = height;

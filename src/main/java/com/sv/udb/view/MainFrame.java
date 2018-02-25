@@ -6,7 +6,10 @@
 package com.sv.udb.view;
 
 import com.sv.udb.controller.TeamController;
+import com.sv.udb.model.Team;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,11 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    int teamId; //Id del equipo seleccionado actualmente
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        refreshTeams();
     }
 
     /**
@@ -40,6 +46,9 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtTeamDesc = new javax.swing.JTextArea();
         btnAddTeam = new javax.swing.JButton();
+        btnModTeam = new javax.swing.JButton();
+        btnDelTeam = new javax.swing.JButton();
+        btnClearTeam = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTeam = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -48,7 +57,7 @@ public class MainFrame extends javax.swing.JFrame {
         txtPlayerName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btnAddTeam1 = new javax.swing.JButton();
+        btnAddPlayer = new javax.swing.JButton();
         txtAge = new javax.swing.JTextField();
         txtHeight = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -56,6 +65,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         cmbTeam = new javax.swing.JComboBox<>();
+        btnModPlayer = new javax.swing.JButton();
+        btnDelPlayer = new javax.swing.JButton();
+        btnClearPlayer = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblPlayer = new javax.swing.JTable();
 
@@ -91,24 +103,51 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btnModTeam.setText("Modificar");
+        btnModTeam.setEnabled(false);
+        btnModTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModTeamActionPerformed(evt);
+            }
+        });
+
+        btnDelTeam.setText("Eliminar");
+        btnDelTeam.setEnabled(false);
+        btnDelTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelTeamActionPerformed(evt);
+            }
+        });
+
+        btnClearTeam.setText("Limpiar");
+        btnClearTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearTeamActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jScrollPane2)
+                        .addComponent(txtTeamName))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2)
-                            .addComponent(txtTeamName)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(btnAddTeam)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                            .addComponent(btnAddTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnClearTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnModTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,8 +163,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddTeam)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddTeam)
+                    .addComponent(btnModTeam))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelTeam)
+                    .addComponent(btnClearTeam))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         tblTeam.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,6 +184,11 @@ public class MainFrame extends javax.swing.JFrame {
                 "Nombre", "Descripción"
             }
         ));
+        tblTeam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTeamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblTeam);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -149,7 +199,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -181,7 +231,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Edad:");
 
-        btnAddTeam1.setText("Agregar");
+        btnAddPlayer.setText("Agregar");
 
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +262,29 @@ public class MainFrame extends javax.swing.JFrame {
 
         cmbTeam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vacío" }));
 
+        btnModPlayer.setText("Modificar");
+        btnModPlayer.setEnabled(false);
+        btnModPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModPlayerActionPerformed(evt);
+            }
+        });
+
+        btnDelPlayer.setText("Eliminar");
+        btnDelPlayer.setEnabled(false);
+        btnDelPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelPlayerActionPerformed(evt);
+            }
+        });
+
+        btnClearPlayer.setText("Limpiar");
+        btnClearPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearPlayerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -230,9 +303,6 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(txtPlayerName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(btnAddTeam1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
@@ -248,6 +318,16 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(txtWeight))))
                 .addGap(18, 18, 18))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClearPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnModPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,8 +357,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddTeam1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModPlayer)
+                    .addComponent(btnAddPlayer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelPlayer)
+                    .addComponent(btnClearPlayer))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         tblPlayer.setModel(new javax.swing.table.DefaultTableModel(
@@ -349,12 +435,29 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtWeightActionPerformed
 
+    private void refreshTeams () {
+        try {
+            //Limpiando campos
+            teamId = 0;
+            txtTeamName.setText("");
+            txtTeamDesc.setText("");
+            //Obteniendo y limpiando modelo de tabla
+            DefaultTableModel model = (DefaultTableModel) tblTeam.getModel();
+            while (model.getRowCount() > 0) model.removeRow(0);
+            //Llenando modelo
+            for (Team team : new TeamController().getAll())
+                model.addRow(new Object[]{team, team.getDescription()});
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al llenar tabla de equipos: " + e.getMessage());
+        }
+    }
+    
     private void btnAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamActionPerformed
         try {
             if ( new TeamController().save(txtTeamName.getText().trim(), txtTeamDesc.getText().trim())) {
                 JOptionPane.showMessageDialog(this, "Equipo guardado");
-                txtTeamName.setText("");
-                txtTeamDesc.setText("");
+                refreshTeams();
             }
             else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el equipo.");
@@ -364,6 +467,78 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddTeamActionPerformed
 
+    private void tblTeamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTeamMouseClicked
+        int row = tblTeam.getSelectedRow();
+        if (row >= 0) {
+            Team team = (Team) tblTeam.getValueAt(row, 0);
+            teamId = team.getCode();
+            txtTeamName.setText(team.getName());
+            txtTeamDesc.setText(team.getDescription());
+            btnAddTeam.setEnabled(false);
+            btnModTeam.setEnabled(true);
+            btnDelTeam.setEnabled(true);
+        }
+    }//GEN-LAST:event_tblTeamMouseClicked
+
+    private void btnModTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModTeamActionPerformed
+        try {
+            if ( new TeamController().update(teamId, txtTeamName.getText().trim(), txtTeamDesc.getText().trim())) {
+                JOptionPane.showMessageDialog(this, "Equipo modificado");
+                refreshTeams();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al modificar el equipo.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnModTeamActionPerformed
+
+    private void btnClearTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearTeamActionPerformed
+        refreshTeams();
+        btnAddTeam.setEnabled(true);
+        btnModTeam.setEnabled(false);
+        btnDelTeam.setEnabled(false);
+    }//GEN-LAST:event_btnClearTeamActionPerformed
+
+    private void btnDelTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelTeamActionPerformed
+        try {
+            if ( new TeamController().delete(teamId)) {
+                JOptionPane.showMessageDialog(this, "Equipo eliminado");
+                refreshTeams();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el equipo.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDelTeamActionPerformed
+/*
+    private void btnModTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeam2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddTeam2ActionPerformed
+
+    private void btnDelTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModTeam1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModTeam1ActionPerformed
+
+    private void btnClearTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModTeam2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModTeam2ActionPerformed
+*/
+    private void btnDelPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelPlayerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDelPlayerActionPerformed
+
+    private void btnClearPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearPlayerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearPlayerActionPerformed
+
+    private void btnModPlayerActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    }   
+    
     /**
      * @param args the command line arguments
      */
@@ -374,12 +549,7 @@ public class MainFrame extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -400,8 +570,14 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddPlayer;
     private javax.swing.JButton btnAddTeam;
-    private javax.swing.JButton btnAddTeam1;
+    private javax.swing.JButton btnClearPlayer;
+    private javax.swing.JButton btnClearTeam;
+    private javax.swing.JButton btnDelPlayer;
+    private javax.swing.JButton btnDelTeam;
+    private javax.swing.JButton btnModPlayer;
+    private javax.swing.JButton btnModTeam;
     private javax.swing.JComboBox<String> cmbTeam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
