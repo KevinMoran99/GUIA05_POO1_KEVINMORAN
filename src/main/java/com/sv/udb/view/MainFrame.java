@@ -5,8 +5,12 @@
  */
 package com.sv.udb.view;
 
+import com.sv.udb.controller.PlayerController;
 import com.sv.udb.controller.TeamController;
+import com.sv.udb.model.Player;
 import com.sv.udb.model.Team;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainFrame extends javax.swing.JFrame {
 
     int teamId; //Id del equipo seleccionado actualmente
+    int playerId;
     
     /**
      * Creates new form MainFrame
@@ -25,6 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         refreshTeams();
+        refreshPlayers();
     }
 
     /**
@@ -232,6 +238,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6.setText("Edad:");
 
         btnAddPlayer.setText("Agregar");
+        btnAddPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPlayerActionPerformed(evt);
+            }
+        });
 
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,44 +301,35 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(cmbTeam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(txtPlayerName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtHeight, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(txtWeight))))
-                .addGap(18, 18, 18))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAddPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClearPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnModPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbTeam, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPlayerName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtHeight, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtWeight))))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAddPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnClearPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnModPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,6 +380,11 @@ public class MainFrame extends javax.swing.JFrame {
                 "Nombre", "Edad", "Altura", "Peso", "Equipo"
             }
         ));
+        tblPlayer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPlayerMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblPlayer);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -437,16 +444,55 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void refreshTeams () {
         try {
-            //Limpiando campos
+            
+            //Limpiando campos de tabla
             teamId = 0;
             txtTeamName.setText("");
             txtTeamDesc.setText("");
             //Obteniendo y limpiando modelo de tabla
             DefaultTableModel model = (DefaultTableModel) tblTeam.getModel();
             while (model.getRowCount() > 0) model.removeRow(0);
-            //Llenando modelo
-            for (Team team : new TeamController().getAll())
+            
+            
+            //Limpiando combobox
+            DefaultComboBoxModel cmModel = (DefaultComboBoxModel) cmbTeam.getModel();
+            cmModel.removeAllElements();
+            
+            
+            //Llenando modelos
+            for (Team team : new TeamController().getAll()) {
                 model.addRow(new Object[]{team, team.getDescription()});
+                cmModel.addElement(team);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al llenar tabla de equipos: " + e.getMessage());
+        }
+    }
+    
+    private void refreshPlayers () {
+        try {
+            
+            
+            btnAddPlayer.setEnabled(true);
+            btnModPlayer.setEnabled(false);
+            btnDelPlayer.setEnabled(false);
+            
+            //Limpiando campos de tabla
+            playerId = 0;
+            txtPlayerName.setText("");
+            txtAge.setText("");
+            txtHeight.setText("");
+            txtWeight.setText("");
+            cmbTeam.setSelectedIndex(0);
+            //Obteniendo y limpiando modelo de tabla
+            DefaultTableModel model = (DefaultTableModel) tblPlayer.getModel();
+            while (model.getRowCount() > 0) model.removeRow(0);
+            
+            
+            //Llenando modelos
+            for (Player player : new PlayerController().getAll()) 
+                model.addRow(new Object[]{player, player.getAge(), player.getHeight(), player.getWeight(), player.getTeam()});
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al llenar tabla de equipos: " + e.getMessage());
@@ -503,12 +549,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnDelTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelTeamActionPerformed
         try {
-            if ( new TeamController().delete(teamId)) {
-                JOptionPane.showMessageDialog(this, "Equipo eliminado");
-                refreshTeams();
-            }
-            else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el equipo.");
+            
+            int n = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el equipo?", "Equipo", JOptionPane.YES_NO_OPTION);
+            
+            if (n == JOptionPane.YES_OPTION) {
+            
+                if ( new TeamController().delete(teamId)) {
+                    JOptionPane.showMessageDialog(this, "Equipo eliminado");
+                    refreshTeams();
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "Error al eliminar el equipo.");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -528,15 +580,88 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModTeam2ActionPerformed
 */
     private void btnDelPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelPlayerActionPerformed
-        // TODO add your handling code here:
+        try {
+            
+            int n = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el jugador?", "Jugador", JOptionPane.YES_NO_OPTION);
+            
+            if (n == JOptionPane.YES_OPTION) {
+            
+                if ( new PlayerController().delete(playerId)) {
+                    JOptionPane.showMessageDialog(this, "Jugador eliminado");
+                    refreshPlayers();
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "Error al eliminar el jugador.");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDelPlayerActionPerformed
 
     private void btnClearPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearPlayerActionPerformed
-        // TODO add your handling code here:
+        refreshPlayers();
     }//GEN-LAST:event_btnClearPlayerActionPerformed
 
+    private void btnAddPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPlayerActionPerformed
+        try {
+            if ( new PlayerController().save(
+                    (Team) cmbTeam.getSelectedItem(),
+                    txtPlayerName.getText().trim(), 
+                    Integer.parseInt(txtAge.getText().trim()),
+                    Double.parseDouble(txtHeight.getText().trim()),
+                    Double.parseDouble(txtWeight.getText().trim()))
+                    ) 
+            {
+                JOptionPane.showMessageDialog(this, "Jugador guardado");
+                refreshPlayers();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el Jugador.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddPlayerActionPerformed
+
+    private void tblPlayerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPlayerMouseClicked
+        int row = tblPlayer.getSelectedRow();
+        if (row >= 0) {
+            Player player = (Player) tblPlayer.getValueAt(row, 0);
+            playerId = player.getCode();
+            txtPlayerName.setText(player.getName());
+            txtAge.setText(String.valueOf(player.getAge()));
+            txtHeight.setText(String.valueOf(player.getHeight()));
+            txtWeight.setText(String.valueOf(player.getWeight()));
+            
+            cmbTeam.setEditable(true);
+            cmbTeam.setSelectedItem(player.getTeam());
+            cmbTeam.setEditable(false);
+            
+            btnAddPlayer.setEnabled(false);
+            btnModPlayer.setEnabled(true);
+            btnDelPlayer.setEnabled(true);
+        }
+    }//GEN-LAST:event_tblPlayerMouseClicked
+
     private void btnModPlayerActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+        try {
+            if ( new PlayerController().update(playerId, 
+                                                (Team) cmbTeam.getSelectedItem(),
+                                                txtPlayerName.getText().trim(), 
+                                                Integer.parseInt(txtAge.getText().trim()),
+                                                Double.parseDouble(txtHeight.getText().trim()),
+                                                Double.parseDouble(txtWeight.getText().trim()))) 
+            {
+                JOptionPane.showMessageDialog(this, "Jugador modificado");
+                refreshPlayers();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Error al modificar el jugador.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al procesar", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }   
     
     /**

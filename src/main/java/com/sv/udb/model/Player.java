@@ -11,6 +11,7 @@ package com.sv.udb.model;
  */
 public class Player {
     private int code;
+    private Team team;
     private String name;
     private int age;
     private double height;
@@ -22,20 +23,16 @@ public class Player {
     public Player() {
     }
 
-    /**
-     *
-     * @param name El nombre del jugador.
-     * @param age La edad del jugador.
-     * @param height La estatura del jugador.
-     * @param weight El peso del jugador.
-     */
-    public Player(int code, String name, int age, double height, double weight) {
+    public Player(int code, Team team, String name, int age, double height, double weight) {
         this.code = code;
         this.name = name;
         this.age = age;
         this.height = height;
         this.weight = weight;
+        this.team = team;
     }
+
+    
 
     /**
      * 
@@ -108,9 +105,15 @@ public class Player {
     public void setCode(int code) {
         this.code = code;
     }
-    
-    
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+    
     @Override
     public String toString() {
         return name;

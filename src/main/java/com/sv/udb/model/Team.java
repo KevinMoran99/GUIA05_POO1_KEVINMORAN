@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Team {
     private int code;
     private String name, description;
-    private ArrayList<Player> playerList;
 
     public Team() {
     }
@@ -34,18 +33,6 @@ public class Team {
         this.name = name;
     }
 
-    public ArrayList<Player> getPlayerList() {
-        return playerList;
-    }
-
-    /**
-     * Añade un jugador al equipo, reemplaza al setter de la lista de jugadores
-     * @param player 
-     */
-    public void addPlayer(Player player) {
-        this.playerList.add(player);
-    }
-
     public String getDescription() {
         return description;
     }
@@ -62,10 +49,8 @@ public class Team {
         this.code = code;
     }
     
-    
-
     @Override
     public String toString() {
         return name;
-}
+    }
 }
