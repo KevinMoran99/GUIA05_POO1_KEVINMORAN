@@ -9,6 +9,7 @@ import com.sv.udb.controller.PlayerController;
 import com.sv.udb.controller.TeamController;
 import com.sv.udb.model.Player;
 import com.sv.udb.model.Team;
+import com.sv.udb.utils.ReportGenerator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -76,6 +77,23 @@ public class MainFrame extends javax.swing.JFrame {
         btnClearPlayer = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblPlayer = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        txtTeamReport = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        btnTeamReport = new javax.swing.JButton();
+        cmbTeamReport = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        txtPlayerReport = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        cmbTeamPlayerReport = new javax.swing.JComboBox<>();
+        cmbPlayerReport = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        btnPlayerReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -406,6 +424,177 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Jugadores", jPanel3);
 
+        jPanel6.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Reporte de equipos");
+
+        txtTeamReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTeamReportActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Filtrar por nombres parecidos a:");
+
+        btnTeamReport.setText("Generar reporte");
+        btnTeamReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTeamReportActionPerformed(evt);
+            }
+        });
+
+        cmbTeamReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visor", "Excel", "Word" }));
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Abrir en:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cmbTeamReport, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTeamReport, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                        .addGap(0, 6, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(btnTeamReport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTeamReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbTeamReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTeamReport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Reporte de jugadores");
+
+        txtPlayerReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlayerReportActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Filtrar por nombres parecidos a:");
+
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Equipo:");
+
+        cmbTeamPlayerReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vacío" }));
+
+        cmbPlayerReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visor", "Excel", "Word" }));
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Abrir en:");
+
+        btnPlayerReport.setText("Generar reporte");
+        btnPlayerReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlayerReportActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPlayerReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(cmbTeamPlayerReport, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbPlayerReport, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(btnPlayerReport)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPlayerReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbTeamPlayerReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbPlayerReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPlayerReport)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Reportes", jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -458,12 +647,19 @@ public class MainFrame extends javax.swing.JFrame {
             DefaultComboBoxModel cmModel = (DefaultComboBoxModel) cmbTeam.getModel();
             cmModel.removeAllElements();
             
+            //Combobox de lista de equipos para reportes
+            DefaultComboBoxModel cmModelReport = (DefaultComboBoxModel) cmbTeamPlayerReport.getModel();
+            cmModelReport.removeAllElements();
+            cmModelReport.addElement("Todos");
             
             //Llenando modelos
             for (Team team : new TeamController().getAll()) {
                 model.addRow(new Object[]{team, team.getDescription()});
                 cmModel.addElement(team);
+                cmModelReport.addElement(team);
             }
+            
+            
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al llenar tabla de equipos: " + e.getMessage());
@@ -571,10 +767,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddTeam2ActionPerformed
 
-    private void btnDelTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModTeam1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModTeam1ActionPerformed
-
     private void btnClearTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModTeam2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModTeam2ActionPerformed
@@ -644,6 +836,26 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblPlayerMouseClicked
 
+    private void txtTeamReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTeamReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTeamReportActionPerformed
+
+    private void btnTeamReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTeamReportActionPerformed
+        String result = ReportGenerator.generateTeamReport(txtTeamReport.getText().trim(), cmbTeamReport.getSelectedIndex());
+        
+        JOptionPane.showMessageDialog(this, result);
+    }//GEN-LAST:event_btnTeamReportActionPerformed
+
+    private void txtPlayerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlayerReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlayerReportActionPerformed
+
+    private void btnPlayerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayerReportActionPerformed
+        String result = ReportGenerator.generatePlayerReport(txtPlayerReport.getText().trim(), cmbTeamPlayerReport.getSelectedItem(), cmbPlayerReport.getSelectedIndex());
+        
+        JOptionPane.showMessageDialog(this, result);
+    }//GEN-LAST:event_btnPlayerReportActionPerformed
+
     private void btnModPlayerActionPerformed(java.awt.event.ActionEvent evt) {                                               
         try {
             if ( new PlayerController().update(playerId, 
@@ -703,8 +915,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnDelTeam;
     private javax.swing.JButton btnModPlayer;
     private javax.swing.JButton btnModTeam;
+    private javax.swing.JButton btnPlayerReport;
+    private javax.swing.JButton btnTeamReport;
+    private javax.swing.JComboBox<String> cmbPlayerReport;
     private javax.swing.JComboBox<String> cmbTeam;
+    private javax.swing.JComboBox<String> cmbTeamPlayerReport;
+    private javax.swing.JComboBox<String> cmbTeamReport;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -717,6 +941,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -726,8 +953,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtHeight;
     private javax.swing.JTextField txtPlayerName;
+    private javax.swing.JTextField txtPlayerReport;
     private javax.swing.JTextArea txtTeamDesc;
     private javax.swing.JTextField txtTeamName;
+    private javax.swing.JTextField txtTeamReport;
     private javax.swing.JTextField txtWeight;
     // End of variables declaration//GEN-END:variables
 }
